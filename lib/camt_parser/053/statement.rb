@@ -58,7 +58,7 @@ module CamtParser
       alias_method :closing_or_intermediary_balance, :closing_balance
 
       def balance_in_credit?(bal)
-        bal.xpath('CdtDbtInd/text()').text == 'CRDT'
+        bal.xpath('CdtDbtInd/text()').text.casecmp?('CRDT')
       end
 
       def source
