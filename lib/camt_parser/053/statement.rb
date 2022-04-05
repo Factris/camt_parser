@@ -42,7 +42,7 @@ module CamtParser
           bal = @xml_data.xpath('Bal/Tp//Cd[contains(text(), "OPBD") or contains(text(), "PRCD")]').first.ancestors('Bal')
           date = bal.xpath('Dt/Dt/text()').text
           currency = bal.xpath('Amt').attribute('Ccy').value
-          AccountBalance.new bal.xpath('Amt/text()').text, currency, date, true
+          AccountBalance.new bal.xpath('Amt/text()').text, currency, date, balance_in_credit?(bal)
         end
       end
       alias_method :opening_or_intermediary_balance, :opening_balance
@@ -52,10 +52,14 @@ module CamtParser
           bal = @xml_data.xpath('Bal/Tp//Cd[contains(text(), "CLBD")]').first.ancestors('Bal')
           date = bal.xpath('Dt/Dt/text()').text
           currency = bal.xpath('Amt').attribute('Ccy').value
-          AccountBalance.new bal.xpath('Amt/text()').text, currency, date, true
+          AccountBalance.new bal.xpath('Amt/text()').text, currency, date, balance_in_credit?(bal)
         end
       end
       alias_method :closing_or_intermediary_balance, :closing_balance
+
+      def balance_in_credit?(bal)
+        bal.xpath('CdtDbtInd/text()').text == 'CRDT'
+      end
 
       def source
         @xml_data.to_s

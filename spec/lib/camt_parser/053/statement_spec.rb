@@ -19,6 +19,18 @@ describe CamtParser::Format053::Statement do
     specify { expect(ex_stmt.closing_balance).to be_kind_of(CamtParser::AccountBalance) }
 
     specify { expect(ex_stmt.identification).to eq("0352C5320131227220503") }
+
+    context 'opening and closing balances in credit' do
+      specify { expect(ex_stmt.opening_balance.credit?).to be true }
+      specify { expect(ex_stmt.closing_balance.credit?).to be true }
+    end
+
+    context 'opening and closing balances in debit' do
+      let(:camt) { CamtParser::File.parse('spec/fixtures/053/valid_example_debit_balances.xml') }
+
+      specify { expect(ex_stmt.opening_balance.credit?).to be false }
+      specify { expect(ex_stmt.closing_balance.credit?).to be false }
+    end
   end
 
   context 'version 4' do
