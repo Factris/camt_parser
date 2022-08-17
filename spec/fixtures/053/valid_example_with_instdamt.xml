@@ -108,7 +108,7 @@
                 <Amt Ccy="CHF">4500.00</Amt>
               </InstdAmt>
               <TxAmt>
-                <Amt Ccy="CHF">0.04</Amt>
+                <Amt Ccy="EUR">4647.00</Amt>
               </TxAmt>
               <PrtryAmt>
                 <Tp>IBS</Tp>
