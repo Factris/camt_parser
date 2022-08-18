@@ -19,8 +19,8 @@ RSpec.describe CamtParser::Transaction do
 
       context 'AmtDtls/InstdAmt' do
         let(:camt) { CamtParser::File.parse('spec/fixtures/053/valid_example_with_instdamt.xml') }
-        specify { expect(ex_transaction.amount).to eq(BigDecimal('4500')) }
-        specify { expect(ex_transaction.amount_in_cents).to eq(450000) }
+        specify { expect(ex_transaction.amount).to eq(BigDecimal('4647')) }
+        specify { expect(ex_transaction.amount_in_cents).to eq(464700) }
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe CamtParser::Transaction do
 
       context 'AmtDtls/InstdAmt' do
         let(:camt) { CamtParser::File.parse('spec/fixtures/053/valid_example_with_instdamt.xml') }
-        specify { expect(ex_transaction.currency).to eq('CHF') }
+        specify { expect(ex_transaction.currency).to eq('EUR') }
       end
     end
 
